@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+    Busca el Pet Sitters de confianza
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Buscar pet sitters</h1>
+
+    <form method="GET" action="{% url 'buscar_cuidador' %}">
+        <label for="nombre">Nombre del Cuidador:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <!-- Botón para reiniciar la búsqueda -->
+    <form method="GET" action="{% url 'buscar_cuidador' %}">
+        <button type="submit">Reiniciar búsqueda</button>
+    </form>
+
+    <!-- Resultados de la búsqueda -->
+    {% if cuidadores %}
+        <h2>Resultados de la búsqueda:</h2>
+        <ul>
+            {% for cuidador in cuidadores %}
+                <li>
+                    <h3>{{ cuidador.nombre }}</h3>
+                    <p>Correo Electrónico: {{ cuidador.correo_electronico }}</p>
+                    <p>Teléfono: {{ cuidador.telefono }}</p>
+                    <p>Biografía: {{ cuidador.biografia }}</p>
+                    <p>Entrenamiento Cuidado Perros: {% if cuidador.entrenamiento_cuidado_perros %}Sí{% else %}No{% endif %}</p>
+                </li>
+                <!-- Puedes mostrar más información del cuidador aquí si lo deseas -->
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron cuidadores con ese nombre.</p>
+    {% endif %}
+{% endblock contenido %}
+
+
