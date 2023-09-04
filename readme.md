@@ -45,6 +45,8 @@ A continuación, se presenta un resumen de las principales funcionalidades de la
 - La aplicación utiliza formularios para recopilar y validar la información antes de guardarla en la base de datos.
 - Los modelos definidos representan las tablas de la base de datos y están relacionados entre sí.
 - Las rutas URL se definen y están vinculadas a las vistas correspondientes.
+- video del proyecto: https://jam.dev/c/582314b1-29fd-459b-a740-64268fc71235
+- casos de test: https://docs.google.com/spreadsheets/d/1g6Z54tj_s7Q7Dp0D986_5exSPSNQmWCrId10LUWVCpI/edit?usp=sharing
 
 ## IMPORTANTE USUARIO
 -  usuario super admin: username: ravila | password: ravila159852
