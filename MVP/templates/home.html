@@ -2,9 +2,33 @@
 {% load static %}
 
 {% block titulo %}
-    Pet Sitter para tus mascotas
+    Petter - Conectando Petsitters con Dueños de Mascotas
 {% endblock titulo %}
 
 {% block contenido %}
-    <h1> Bienveniendo a mi aplicación </h1>
-{% endblock %}
+    <div class="container text-center py-5">
+        <h1 class="display-4">Bienvenido a Petter</h1>
+        <p class="lead">La plataforma que hace que el cuidado de tus mascotas sea más fácil que nunca.</p>
+    </div>
+
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="mb-3">¿Qué Ofrecemos?</h2>
+                <p>
+                    En Petter, estamos comprometidos a proporcionarte la mejor experiencia en el cuidado de tus mascotas.
+                    Aquí hay algunas de las características principales de nuestra plataforma:
+                </p>
+                <ul class="list-group">
+                    <li class="list-group-item">Registro de Usuarios: Regístrate para acceder a cuidadores de mascotas exclusivos.</li>
+                    <li class="list-group-item">Publicación de Perfiles: Los cuidadores pueden crear perfiles detallados con información sobre sus servicios, tarifas, ubicación y capacitación.</li>
+                    <li class="list-group-item">Búsqueda y Filtros: Encuentra cuidadores de mascotas que se adapten a tus necesidades con nuestras herramientas de búsqueda y filtros avanzados.</li>
+                    <li class="list-group-item">Soporte al Cliente: Si tienes preguntas o problemas, nuestro equipo de soporte está aquí para ayudarte.</li>
+                    <li class="list-group-item">Seguridad y Verificación: Implementamos medidas de seguridad para garantizar que nuestros cuidadores sean confiables y calificados.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

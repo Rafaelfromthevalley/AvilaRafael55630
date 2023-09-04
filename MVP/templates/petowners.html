@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+    Pet Owners
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Pet Owners</h1>
+    <h3>Mira todas las personas que han confiado en nosotros, pideles referencias</h3>
+
+    {% if user.is_superuser %} 
+        <a class="btn btn-primary" href="{% url 'agregar_dueno' %}">
+            <i class="fas fa-plus"></i> Agregar PetOwners
+        </a>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo Electrónico</th>
+                <th>Teléfono</th>
+                {% if user.is_superuser %} 
+                    <th>acciones</th>
+                {% endif %} 
+            </tr>
+        </thead>
+        <tbody>
+            {% for petowner in duenomascota_list %}
+                <tr>
+                    <td>{{ petowner.nombre }}</td>
+                    <td>{{ petowner.correo_electronico }}</td>
+                    <td>{{ petowner.telefono }}</td>
+                    {% if user.is_superuser %} 
+                    <td>
+                        <a href="{% url 'update_dueno' pk=petowner.pk %}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <form method="post" action="{% url 'deleted_dueno' pk=petowner.pk %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar al petowner?');">
+                                <i class="fas fa-trash"></i> Borrar
+                            </button>
+                        </form>
+                        
+                    </td>
+                    {% endif %} 
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No hay dueños de mascostas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock contenido %}

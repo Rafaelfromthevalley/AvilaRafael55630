@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+    Mascotas
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1> Mascotas </h1>
+    {% if user.is_superuser %} 
+    <h3> Aquí se pueden agregar mascostas de nuestros petowners "solo administradores"</h3>
+    <a class="btn btn-primary" href="{% url 'agregar_mascota' %}">
+        <i class="fas fa-plus"></i> Agregar Mascota
+    </a>
+    {% endif %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Dueño</th>
+                <th>Tipo</th>
+                <th>Raza</th>
+                <th>Edad</th>
+                {% if user.is_superuser %} 
+                <th>Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for mascota in mascota_list %}
+                <tr>
+                    <td>{{ mascota.nombre }}</td>
+                    <td>{{ mascota.dueno }}</td>
+                    <td>{{ mascota.tipo }}</td>
+                    <td>{{ mascota.raza }}</td>
+                    <td>{{ mascota.edad }}</td>
+                    {% if user.is_superuser %}
+                    <td>
+                        <a href="{% url 'update_mascota' pk=mascota.pk %}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <form method="post" action="{% url 'deleted_mascota' pk=mascota.pk %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar al petowner?');">
+                                <i class="fas fa-trash"></i> Borrar
+                            </button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No hay cuidadores de mascotas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock contenido %}

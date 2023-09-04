@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+    Pet Sitters
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1> Cuidadores de Mascotas </h1>
+    <h3> Contacta con los cuidadores de mascotas disponibles</h3>
+    {% if user.is_superuser %} 
+    <a class="btn btn-primary" href="{% url 'agregar_cuidador' %}">
+        <i class="fas fa-plus"></i> Agregar Cuidador
+    </a>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url 'buscar_cuidador' %}">
+        <i class="fas fa-plus"></i> Buscar Cuidador de mascota
+    </a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo Electrónico</th>
+                <th>Teléfono</th>
+                <th>Biografía</th>
+                <th>Entrenamiento Cuidado de Mascotas</th>
+                {% if user.is_superuser %} 
+                <th>Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for cuidador in cuidadores %}
+                <tr>
+                    <td>{{ cuidador.nombre }}</td>
+                    <td>{{ cuidador.correo_electronico }}</td>
+                    <td>{{ cuidador.telefono }}</td>
+                    <td>{{ cuidador.biografia }}</td>
+                    <td>{% if cuidador.entrenamiento_cuidado_perros %}Sí{% else %}No{% endif %}</td>
+                    {% if user.is_superuser %} 
+                    <td>
+                        <a href="{% url 'editar_cuidador' cuidador_id=cuidador.id %}" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <form method="post" action="{% url 'eliminar_cuidador' cuidador.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar a {{ cuidador.nombre }}?');">
+                                <i class="fas fa-trash"></i> Borrar
+                            </button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No hay cuidadores de mascotas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock contenido %}
